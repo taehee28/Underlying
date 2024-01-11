@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,7 +41,7 @@ fun CloseButton(onClick: () -> Unit) = Button(
     elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp),
     shape = CircleShape,
     contentPadding = PaddingValues(8.dp),
-    modifier = Modifier.defaultMinSize(1.dp, 1.dp)
+    modifier = Modifier.defaultMinSize(1.dp, 1.dp).size(50.dp)
 ) {
     Icon(painter = painterResource(id = R.drawable.ic_close), contentDescription = "close button")
 }
@@ -60,7 +61,7 @@ fun CloseButtonPreview() {
 fun ChipButton(
     text: String,
     onClick: () -> Unit
-) {
+) = Box(contentAlignment = Alignment.Center) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
@@ -70,7 +71,9 @@ fun ChipButton(
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(30.dp),
         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
-        modifier = Modifier.defaultMinSize(1.dp, 1.dp).width(82.dp)
+        modifier = Modifier
+            .defaultMinSize(1.dp, 1.dp)
+            .width(83.dp)
     ) {
         Text(
             text = text,
