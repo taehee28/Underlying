@@ -39,3 +39,18 @@ val Yellow200 = Color(0xFFF9F99F)
 val Yellow300 = Color(0xFFF6F07E)
 
 val Gray950 = Color(0xFF1A1A1A)
+
+val ChipBackgroundColors = arrayOf(
+    Pink100,
+    Pink200,
+    Pink300,
+    RedOrange100,
+    RedOrange200,
+    RedOrange300,
+    Orange100,
+    Orange200,
+    Orange300,
+    Yellow100,
+    Yellow200,
+    Yellow300
+)
