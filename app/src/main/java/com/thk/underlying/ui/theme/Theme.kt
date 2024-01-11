@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -37,14 +38,23 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+private val DefaultColorScheme = lightColorScheme(
+    primary = Pink300,
+    secondary = Pink800,
+    background = Purple800,
+    onBackground = Color.White,
+    surface = Color.White,
+    onSurface = Gray950
+)
+
 @Composable
 fun UnderlyingTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false /*isSystemInDarkTheme()*/,
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+    /*val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -52,7 +62,10 @@ fun UnderlyingTheme(
 
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
-    }
+    }*/
+
+    val colorScheme = DefaultColorScheme
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
