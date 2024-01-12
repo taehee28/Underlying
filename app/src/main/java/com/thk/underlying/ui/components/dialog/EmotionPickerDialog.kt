@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.thk.underlying.models.Emotion
 import com.thk.underlying.models.Emotions
 import com.thk.underlying.ui.components.ChipButton
@@ -33,8 +34,11 @@ import com.thk.underlying.ui.components.CloseButton
 @Composable
 fun EmotionPickerDialog(
     array: Array<Emotion>,
-    onClick: (Emotion?) -> Unit
-) = Dialog(onDismissRequest = {}) {
+    onClick: (Emotion) -> Unit,
+    onDismiss: () -> Unit
+) = Dialog(
+    onDismissRequest = onDismiss
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -49,6 +53,7 @@ fun EmotionPickerDialog(
             items(array) { emotion ->
                 ChipButton(text = emotion.original) {
                     onClick(emotion)
+                    onDismiss()
                 }
             }
         }
@@ -56,7 +61,7 @@ fun EmotionPickerDialog(
         Spacer(modifier = Modifier.height(50.dp))
 
         CloseButton {
-            onClick(null)
+            onDismiss()
         }
     }
 }
@@ -81,9 +86,11 @@ fun EmotionPickerDialogPreview() {
         }
 
         if (true) {
-            EmotionPickerDialog(Emotions.detailEmotions) {
-                visible = false
-            }
+            EmotionPickerDialog(
+                array = Emotions.detailEmotions,
+                onClick = {},
+                onDismiss = { visible = false }
+            )
         }
     }
 }

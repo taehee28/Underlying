@@ -184,10 +184,9 @@ fun UnderlineTextButtonPreview() {
                 EmotionPickerDialog(
                     array = Emotions.detailEmotions,
                     onClick = {
-                        if (it != null) {
-                            text = it.statementEnding
-                        }
-                        
+                        text = it.statementEnding
+                    },
+                    onDismiss = {
                         dialogVisible = false
                     }
                 )
