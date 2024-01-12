@@ -25,34 +25,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.thk.underlying.models.Emotion
+import com.thk.underlying.models.Emotions
 import com.thk.underlying.ui.components.ChipButton
 import com.thk.underlying.ui.components.CloseButton
 
-val sampleStrings = arrayOf(
-    "불안",
-    "두려움",
-    "무서움",
-    "지침",
-    "힘듦",
-    "막막함",
-    "외면",
-    "피하다",
-    "부담",
-    "긴장",
-    "초조함",
-    "싫음",
-    "별로",
-    "불편함",
-    "불쾌함",
-    "속상함",
-    "서운함",
-    "슬픔"
-)
-
 @Composable
 fun EmotionPickerDialog(
-    array: Array<String>,
-    onClick: (String?) -> Unit
+    array: Array<Emotion>,
+    onClick: (Emotion?) -> Unit
 ) = Dialog(onDismissRequest = {}) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,9 +46,9 @@ fun EmotionPickerDialog(
             contentPadding = PaddingValues(vertical = 10.dp),
             modifier = Modifier.widthIn(max = 400.dp)
         ) {
-            items(array) { string ->
-                ChipButton(text = string) {
-                    onClick(string)
+            items(array) { emotion ->
+                ChipButton(text = emotion.original) {
+                    onClick(emotion)
                 }
             }
         }
@@ -100,7 +81,7 @@ fun EmotionPickerDialogPreview() {
         }
 
         if (true) {
-            EmotionPickerDialog(sampleStrings) {
+            EmotionPickerDialog(Emotions.detailEmotions) {
                 visible = false
             }
         }

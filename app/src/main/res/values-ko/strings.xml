@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">알맹이</string>
+
+    <!--<string name="emotion_gloomy"></string>
+    <string name="emotion_lethargy"></string>
+    <string name="emotion_annoying"></string>
+    <string name="emotion_badMood"></string>
+    <string name="emotion_stress"></string>
+    <string name="emotion_loneliness"></string>
+
+    <string name="emotion_worry_original"></string>
+    <string name="emotion_worry_linking"></string>
+    <string name="emotion_worry_statement"></string>
+    <string name="emotion_worry_was"></string>
+
+    <string name="emotion_anxiety_original"></string>
+    <string name="emotion_anxiety_linking"></string>
+    <string name="emotion_anxiety_statement"></string>
+    <string name="emotion_anxiety_was"></string>
+
+    <string name="emotion_fear_original"></string>
+    <string name="emotion_fear_linking"></string>
+    <string name="emotion_fear_statement"></string>
+    <string name="emotion_fear_was"></string>
+
+    <string name="emotion_scary_original"></string>
+    <string name="emotion_scary_linking"></string>
+    <string name="emotion_scary_statement"></string>
+    <string name="emotion_scary_was"></string>
+
+    <string name="emotion_exhausted_original"></string>
+    <string name="emotion_exhausted_linking"></string>
+    <string name="emotion_exhausted_statement"></string>
+    <string name="emotion_exhausted_was"></string>
+
+    <string name="emotion_difficulty_original"></string>
+    <string name="emotion_difficulty_linking"></string>
+    <string name="emotion_difficulty_statement"></string>
+    <string name="emotion_difficulty_was"></string>
+
+    <string name="emotion_regret_original"></string>
+    <string name="emotion_regret_linking"></string>
+    <string name="emotion_regret_statement"></string>
+    <string name="emotion_regret_was"></string>
+
+    <string name="emotion_hopeless_original"></string>
+    <string name="emotion_hopeless_linking"></string>
+    <string name="emotion_hopeless_statement"></string>
+    <string name="emotion_hopeless_was"></string>
+
+    <string name="emotion_faceAway_original"></string>
+    <string name="emotion_faceAway_linking"></string>
+    <string name="emotion_faceAway_statement"></string>
+    <string name="emotion_faceAway_was"></string>
+
+    <string name="emotion_avoid_original"></string>
+    <string name="emotion_avoid_linking"></string>
+    <string name="emotion_avoid_statement"></string>
+    <string name="emotion_avoid_was"></string>
+
+    <string name="emotion_pressure_original"></string>
+    <string name="emotion_pressure_linking"></string>
+    <string name="emotion_pressure_statement"></string>
+    <string name="emotion_pressure_was"></string>
+
+    <string name="emotion_nerves_original"></string>
+    <string name="emotion_nerves_linking"></string>
+    <string name="emotion_nerves_statement"></string>
+    <string name="emotion_nerves_was"></string>
+
+    <string name="emotion_hate_original"></string>
+    <string name="emotion_hate_linking"></string>
+    <string name="emotion_hate_statement"></string>
+    <string name="emotion_hate_was"></string>
+
+    <string name="emotion_unpleasant_original"></string>
+    <string name="emotion_unpleasant_linking"></string>
+    <string name="emotion_unpleasant_statement"></string>
+    <string name="emotion_unpleasant_was"></string>
+
+    <string name="emotion_uncomfortable_original"></string>
+    <string name="emotion_uncomfortable_linking"></string>
+    <string name="emotion_uncomfortable_statement"></string>
+    <string name="emotion_uncomfortable_was"></string>
+
+    <string name="emotion_upset_original"></string>
+    <string name="emotion_upset_linking"></string>
+    <string name="emotion_upset_statement"></string>
+    <string name="emotion_upset_was"></string>
+
+    <string name="emotion_hurt_original"></string>
+    <string name="emotion_hurt_linking"></string>
+    <string name="emotion_hurt_statement"></string>
+    <string name="emotion_hurt_was"></string>
+
+    <string name="emotion_sadness_original"></string>
+    <string name="emotion_sadness_linking"></string>
+    <string name="emotion_sadness_statement"></string>
+    <string name="emotion_sadness_was"></string>-->
+
+</resources>
