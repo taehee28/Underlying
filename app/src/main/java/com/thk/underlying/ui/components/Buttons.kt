@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thk.underlying.R
@@ -94,21 +95,21 @@ fun ChipButton(
     }
 }
 
-/**
- * 밑줄 있는 텍스트 버튼.
- * 다른 일반 Text하고 정렬을 맞추려면 alignByBaseline을 전부 적용해야 함.
- */
 @Composable
 fun UnderlineTextButton(
     text: String,
     onClick: () -> Unit,
     hint: String,
-    color: Color,
-    modifier: Modifier = Modifier
+    color: Color
 ) {
-    Column(
+    Text(
+        text = text.ifEmpty { hint },
+        style = MaterialTheme.typography.bodyLarge.copy(
+            color = color,
+            textDecoration = TextDecoration.Underline
+        ),
         modifier = Modifier
-            .width(IntrinsicSize.Max)
+            .alpha(if (text.isEmpty()) 0.5f else 1f)
             .clickable(
                 onClick = onClick,
                 interactionSource = remember {
@@ -116,19 +117,7 @@ fun UnderlineTextButton(
                 },
                 indication = null
             )
-            .then(modifier)
-    ) {
-        Text(
-            text = text.ifEmpty { hint },
-            style = MaterialTheme.typography.bodyLarge.copy(color = color),
-            modifier = Modifier.alpha(if (text.isEmpty()) 0.5f else 1f)
-        )
-        Divider(
-            thickness = 2.dp,
-            color = color,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 @Preview
@@ -169,15 +158,14 @@ fun UnderlineTextButtonPreview() {
                     .background(Color.White)
                     .padding(16.dp)
             ) {
-                Text(text = "그래서 나는 ", modifier = Modifier.alignByBaseline())
+                Text(text = "그래서 나는 ")
                 UnderlineTextButton(
                     text = text,
                     onClick =  { dialogVisible = true },
                     hint = "어떤 감정",
-                    color = Pink800,
-                    modifier = Modifier.alignByBaseline()
+                    color = Pink800
                 )
-                Text(text = "다.", modifier = Modifier.alignByBaseline())
+                Text(text = "다.")
             }
 
             if (dialogVisible) {

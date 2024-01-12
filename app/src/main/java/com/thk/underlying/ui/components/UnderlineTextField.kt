@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,7 +67,10 @@ fun UnderlineTextField(
         if (hintVisible) {
             Text(
                 text = hint,
-                style = MaterialTheme.typography.bodyLarge.copy(color = color),
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    color = color,
+                    textDecoration = TextDecoration.Underline
+                ),
                 modifier = Modifier.alpha(0.5f)
             )
         }
@@ -74,17 +78,12 @@ fun UnderlineTextField(
         BasicTextField(
             value = _text,
             onValueChange = { onTextChange(it) },
-            textStyle = MaterialTheme.typography.bodyLarge.copy(color = color),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(
+                color = color,
+                textDecoration = TextDecoration.Underline
+            ),
             modifier = Modifier.fillMaxWidth()
-        ) { innerTextField ->
-            Column {
-                innerTextField()
-                Divider(
-                    thickness = 2.dp,
-                    color = color
-                )
-            }
-        }
+        )
     }
 }
 
@@ -110,8 +109,7 @@ fun UnderlineTextFieldPreview() {
                 color = Pink800
             )
             Text(
-                text = " 때문이다.",
-                modifier = Modifier.wrapContentWidth(unbounded = true)
+                text = " 때문이다."
             )
         }
     }
