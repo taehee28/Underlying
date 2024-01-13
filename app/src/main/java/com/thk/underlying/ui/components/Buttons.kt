@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,6 +53,8 @@ import com.thk.underlying.ui.theme.ChipBackgroundColors
 import com.thk.underlying.ui.theme.Gray950
 import com.thk.underlying.ui.theme.Pink800
 import com.thk.underlying.ui.theme.UnderlyingTheme
+import com.thk.underlying.ui.theme.textButtonLarge
+import com.thk.underlying.ui.theme.textButtonSmall
 
 @Composable
 fun CloseButton(onClick: () -> Unit) = Button(
@@ -98,27 +101,21 @@ fun ChipButton(
 @Composable
 fun UnderlineTextButton(
     text: String,
+    color: Color,
+    style: TextStyle,
     onClick: () -> Unit,
-    hint: String,
-    color: Color
-) {
-    Text(
-        text = text.ifEmpty { hint },
-        style = MaterialTheme.typography.bodyLarge.copy(
-            color = color,
-            textDecoration = TextDecoration.Underline
-        ),
-        modifier = Modifier
-            .alpha(if (text.isEmpty()) 0.5f else 1f)
-            .clickable(
-                onClick = onClick,
-                interactionSource = remember {
-                    MutableInteractionSource()
-                },
-                indication = null
-            )
+    modifier: Modifier = Modifier
+) = Text(
+    text = text,
+    style = style.copy(color = color),
+    modifier = modifier.clickable(
+        onClick = onClick,
+        interactionSource = remember {
+            MutableInteractionSource()
+        },
+        indication = null
     )
-}
+)
 
 @Preview
 @Composable
@@ -160,10 +157,10 @@ fun UnderlineTextButtonPreview() {
             ) {
                 Text(text = "그래서 나는 ")
                 UnderlineTextButton(
-                    text = text,
-                    onClick =  { dialogVisible = true },
-                    hint = "어떤 감정",
-                    color = Pink800
+                    text = text.ifEmpty { "어떤 감정" },
+                    color = if (text.isEmpty()) Pink800.copy(alpha = 0.5f) else Pink800,
+                    style = MaterialTheme.typography.textButtonLarge,
+                    onClick = { dialogVisible = true }
                 )
                 Text(text = "다.")
             }
@@ -179,6 +176,27 @@ fun UnderlineTextButtonPreview() {
                     }
                 )
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun UnderlineTextButtonSmallPreview() {
+    UnderlyingTheme {
+        Column {
+            UnderlineTextButton(
+                text = "그만하기",
+                color = Color.White,
+                style = MaterialTheme.typography.textButtonSmall,
+                onClick = { /*TODO*/ }
+            )
+            UnderlineTextButton(
+                text = "메인으로 돌아가기",
+                color = Color.White,
+                style = MaterialTheme.typography.textButtonSmall,
+                onClick = { /*TODO*/ }
+            )
         }
     }
 }
