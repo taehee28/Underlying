@@ -43,6 +43,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -89,11 +90,12 @@ fun ChipButton(
         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
         modifier = Modifier
             .defaultMinSize(1.dp, 1.dp)
-            .width(83.dp)
+            .widthIn(min = 83.dp)
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.fixedSp)
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.fixedSp),
+            textAlign = TextAlign.Center
         )
     }
 }

@@ -31,11 +31,15 @@ import com.thk.underlying.models.Emotions
 import com.thk.underlying.ui.components.ChipButton
 import com.thk.underlying.ui.components.CloseButton
 
+/**
+ * [Emotions.abstractEmotions]를 사용하는 경우에는 columns를 2로 주어야 함
+ */
 @Composable
 fun EmotionPickerDialog(
     array: Array<Emotion>,
     onClick: (Emotion) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    columns: Int = 3
 ) = Dialog(
     onDismissRequest = onDismiss
 ) {
@@ -44,7 +48,7 @@ fun EmotionPickerDialog(
         verticalArrangement = Arrangement.Center
     ) {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
+            columns = GridCells.Fixed(columns),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(40.dp),
             contentPadding = PaddingValues(vertical = 10.dp),
