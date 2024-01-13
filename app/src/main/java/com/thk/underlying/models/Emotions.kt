@@ -37,8 +37,8 @@ object Emotions {
     )
     val exhausted = Emotion(
         original = "지침",
-        linkingEnding = "지치",
-        statementEnding = "지치",
+        linkingEnding = "지쳤",
+        statementEnding = "지쳤",
         wasEnding = "지친"
     )
     val difficulty = Emotion(
