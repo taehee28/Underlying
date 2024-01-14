@@ -10,11 +10,11 @@ import com.thk.underlying.R
 
 val UnderlyingFont = FontFamily(
     Font(
-        resId = R.font.pretendard,
+        resId = R.font.pretendard_regular,
         weight = FontWeight.Normal
     ),
     Font(
-        resId = R.font.pretendard,
+        resId = R.font.pretendard_semibold,
         weight = FontWeight.SemiBold
     )
 )
