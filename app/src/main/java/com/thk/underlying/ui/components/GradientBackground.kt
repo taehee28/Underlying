@@ -93,7 +93,7 @@ fun GradientBackground(
     )
 
     Box(
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.TopCenter,
         modifier = Modifier
             .fillMaxSize()
             .background(Purple800)
@@ -114,9 +114,12 @@ fun GradientBackgroundPreview() {
         GradientBackground(
             stateProvider = { backgroundState }
         ) {
-            Button(onClick = {
-                backgroundState = GradientState.entries.random()
-            }) {
+            Button(
+                onClick = {
+                    backgroundState = GradientState.entries.random()
+                },
+                modifier = Modifier.align(Alignment.Center)
+            ) {
                 Text(text = "바꾸기")
             }
         }
