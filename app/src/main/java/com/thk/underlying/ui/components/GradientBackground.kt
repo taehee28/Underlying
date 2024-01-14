@@ -1,11 +1,13 @@
 package com.thk.underlying.ui.components
 
+import android.util.Log
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,10 +26,11 @@ import com.thk.underlying.ui.theme.Purple800
 import com.thk.underlying.ui.theme.UnderlyingTheme
 
 @Composable
-fun GradientBackground() {
-    var backgroundState by remember {
-        mutableStateOf(GradientState.DARK_TO_LIGHT)
-    }
+fun GradientBackground(
+    stateProvider: () -> GradientState,
+    content: @Composable BoxScope.() -> Unit
+) {
+    val backgroundState by rememberUpdatedState(newValue = stateProvider())
     val trans = updateTransition(targetState = backgroundState, "background color transition")
 
     val start by trans.animateColor(
@@ -93,20 +97,28 @@ fun GradientBackground() {
         modifier = Modifier
             .fillMaxSize()
             .background(Purple800)
-            .background(Brush.verticalGradient(colorStops = colors))
-    ) {
-        Button(onClick = {
-            backgroundState = GradientState.entries.random()
-        }) {
-            Text(text = "바꾸기")
-        }
-    }
+            .background(Brush.verticalGradient(colorStops = colors)),
+        content = content
+    )
 }
+
 
 @Preview
 @Composable
 fun GradientBackgroundPreview() {
     UnderlyingTheme {
-        GradientBackground()
+        var backgroundState by remember {
+            mutableStateOf(GradientState.DARK_TO_LIGHT)
+        }
+
+        GradientBackground(
+            stateProvider = { backgroundState }
+        ) {
+            Button(onClick = {
+                backgroundState = GradientState.entries.random()
+            }) {
+                Text(text = "바꾸기")
+            }
+        }
     }
 }
