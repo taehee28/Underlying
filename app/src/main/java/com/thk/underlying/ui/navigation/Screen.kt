@@ -6,7 +6,7 @@ sealed class Screen(val route: String) {
     data object Home : Screen("home")
 
     data object Finding : Screen("finding") {
-        data object InProgress : Screen("inProgress")
+        data object InFlow : Screen("inFlow")
         data object Result : Screen("result")
         data object GoalSetting : Screen("goalSetting")
     }

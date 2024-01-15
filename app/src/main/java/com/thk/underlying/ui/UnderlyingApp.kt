@@ -1,13 +1,5 @@
 package com.thk.underlying.ui
 
-import android.util.Log
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -15,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -48,7 +39,7 @@ fun UnderlyingApp() {
 
                 backgroundState = when (destination.route) {
                     Screen.Home.route -> GradientState.DARK_TO_LIGHT
-                    Screen.Finding.InProgress.route -> GradientState.FULL_DARK
+                    Screen.Finding.InFlow.route -> GradientState.FULL_DARK
                     Screen.Finding.Result.route -> GradientState.LIGHT_TO_DARK
                     Screen.Finding.GoalSetting.route -> GradientState.FULL_LIGHT
                     else -> GradientState.DARK_TO_LIGHT
@@ -77,8 +68,8 @@ private fun UnderlyingNavHost(navController: NavHostController) {
             )
         }
 
-        navigation(startDestination = Screen.Finding.InProgress.route, route = Screen.Finding.route) {
-            composable(route = Screen.Finding.InProgress.route) {
+        navigation(startDestination = Screen.Finding.InFlow.route, route = Screen.Finding.route) {
+            composable(route = Screen.Finding.InFlow.route) {
 
             }
         }
