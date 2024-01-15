@@ -2,19 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="GradientBackgroundPreview">
-        <State />
-      </entry>
-      <entry key="HomeScreenPreview">
-        <State />
-      </entry>
-      <entry key="SamplePreview">
-        <State />
-      </entry>
-      <entry key="UnderlineTextButtonPreview">
-        <State />
-      </entry>
-      <entry key="UnderlineTextFieldPreview">
+      <entry key="EmotionPickerDialogPreview">
         <State />
       </entry>
       <entry key="app">

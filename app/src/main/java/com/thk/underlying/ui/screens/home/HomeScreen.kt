@@ -34,7 +34,9 @@ import com.thk.underlying.ui.theme.UnderlyingTheme
 import com.thk.underlying.ui.theme.titleLargeSemiBold
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navigateToRevealScreen: () -> Unit
+) {
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier
@@ -82,7 +84,7 @@ fun HomeScreen() {
                     .width(48.dp)
                     .fillMaxHeight()
                     .clickable(
-                        onClick = {},
+                        onClick = { navigateToRevealScreen() },
                         interactionSource = remember {
                             MutableInteractionSource()
                         },
@@ -100,7 +102,7 @@ fun HomeScreen() {
 fun HomeScreenPreview() {
     UnderlyingTheme {
         GradientBackground(stateProvider = { GradientState.DARK_TO_LIGHT }) {
-            HomeScreen()
+            HomeScreen({})
         }
     }
 }
