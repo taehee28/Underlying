@@ -1,8 +1,15 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package com.thk.underlying.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,6 +28,7 @@ import com.thk.underlying.models.Emotion
 import com.thk.underlying.models.Emotions
 import com.thk.underlying.ui.components.dialog.EmotionPickerDialog
 import com.thk.underlying.ui.theme.Pink300
+import com.thk.underlying.ui.theme.Purple800
 import com.thk.underlying.ui.theme.UnderlyingTheme
 import com.thk.underlying.ui.theme.textButtonLarge
 
@@ -31,16 +40,17 @@ fun IntroFirstQuestionText(
     var dialogVisible by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
 
-    QuestionRow {
-        Text(text = "나는 요즘 ")
-        QuestionTextButton(
-            text = text,
-            hint = "어떤 감정",
-            enabled = enabled
-        ) {
-            dialogVisible = true
+    QuestionStyleProvider {
+        Row {
+            Text(text = "나는 요즘 ")
+            QuestionTextButton(
+                text = text,
+                enabled = enabled
+            ) {
+                dialogVisible = true
+            }
+            Text(text = "을(를) 느낀다.")
         }
-        Text(text = "을 느낀다.")
     }
 
     if (dialogVisible) {
@@ -50,33 +60,76 @@ fun IntroFirstQuestionText(
                 text = it.original
                 onEmotionSelected(it)
             },
-            onDismiss = { dialogVisible = false }
+            onDismiss = { dialogVisible = false },
+            columns = 2
         )
     }
 }
 
 @Composable
-private fun QuestionRow(
-    content: @Composable RowScope.() -> Unit
+fun IntroSecondQuestionText(
+    enabled: Boolean,
+    onTextChange: (String) -> Unit
+) {
+    QuestionStyleProvider {
+        Column {
+            Text(text = "왜냐하면,")
+            FlowRow {
+                var text by remember { mutableStateOf("") }
+
+                QuestionTextField(
+                    text = text,
+                    onTextChange = {
+                        text = it
+                        onTextChange(it.trim())
+                    },
+                    enabled = enabled
+                )
+                Text(text = " 때문이다.")
+            }
+        }
+    }
+}
+
+@Composable
+private fun QuestionStyleProvider(
+    content: @Composable () -> Unit
 ) {
     ProvideTextStyle(value = MaterialTheme.typography.bodyLarge.copy(color = Color.White)) {
-        Row(content = content)
+        content()
     }
 }
 
 @Composable
 private fun QuestionTextButton(
     text: String,
-    hint: String,
     enabled: Boolean,
     onClick: () -> Unit
 ) = Box {
     if (enabled) {
         UnderlineTextButton(
-            text = text.ifEmpty { hint },
+            text = text.ifEmpty { "어떤 감정" },
             color = if (text.isEmpty()) Pink300.copy(alpha = 0.5f) else Pink300,
             style = MaterialTheme.typography.textButtonLarge,
             onClick = onClick
+        )
+    } else {
+        Text(text = text)
+    }
+}
+
+@Composable
+private fun QuestionTextField(
+    text: String,
+    onTextChange: (String) -> Unit,
+    enabled: Boolean
+) {
+    if (enabled) {
+        UnderlineTextField(
+            text = text,
+            onTextChange = onTextChange,
+            hint = "어떤 이유",
+            color = Pink300
         )
     } else {
         Text(text = text)
@@ -88,9 +141,11 @@ private fun QuestionTextButton(
 private fun QuestionTextPreview() {
     UnderlyingTheme {
         Column(
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+            modifier = Modifier.background(Purple800)
         ) {
             IntroFirstQuestionText(true, {})
+            IntroSecondQuestionText(enabled = true, onTextChange = {})
         }
     }
 }
