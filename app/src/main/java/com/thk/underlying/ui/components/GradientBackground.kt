@@ -96,7 +96,6 @@ fun GradientBackground(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier
             .fillMaxSize()
-            .background(Purple800)
             .background(Brush.verticalGradient(colorStops = colors)),
         content = content
     )
