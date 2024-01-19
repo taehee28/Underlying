@@ -10,11 +10,13 @@ enum class FlowStep {
     REPEAT_FIRST,
     REPEAT_SECOND;
 
-    fun getStep(@IntRange(from = 0) stepCount: Int): FlowStep = when {
-        stepCount == 0 -> INTRO_FIRST
-        stepCount == 1 -> INTRO_SECOND
-        stepCount == 2 -> INTRO_THIRD
-        (stepCount % 2) == 1 -> REPEAT_FIRST
-        else -> REPEAT_SECOND
+    companion object {
+        fun getStep(@IntRange(from = 0) stepCount: Int): FlowStep = when {
+            stepCount == 0 -> INTRO_FIRST
+            stepCount == 1 -> INTRO_SECOND
+            stepCount == 2 -> INTRO_THIRD
+            (stepCount % 2) == 1 -> REPEAT_FIRST
+            else -> REPEAT_SECOND
+        }
     }
 }
