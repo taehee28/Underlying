@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
@@ -92,6 +94,65 @@ fun IntroSecondQuestionText(
 }
 
 @Composable
+fun RepeatFirstQuestionText(
+    enabled: Boolean,
+    keyword: String,
+    onTextChange: (String) -> Unit
+) {
+    QuestionStyleProvider {
+        Column {
+            Text(text = "왜 ${keyword}냐면,")
+            FlowRow {
+                var text by remember { mutableStateOf("") }
+
+                QuestionTextField(
+                    text = text,
+                    onTextChange = {
+                        text = it
+                        onTextChange(it.trim())
+                    },
+                    enabled = enabled
+                )
+                Text(text = " 같기 때문이다.")
+            }
+        }
+    }
+}
+
+@Composable
+fun RepeatSecondQuestionText(
+    enabled: Boolean,
+    onEmotionSelected: (Emotion) -> Unit
+) {
+    var text by remember { mutableStateOf("") }
+    var dialogVisible by remember { mutableStateOf(false) }
+
+    QuestionStyleProvider {
+        FlowRow {
+            Text(text = "그래서 나는 ")
+            QuestionTextButton(
+                text = text,
+                enabled = enabled
+            ) {
+                dialogVisible = true
+            }
+            Text(text = "다.")
+        }
+    }
+
+    if (dialogVisible) {
+        EmotionPickerDialog(
+            array = Emotions.detailEmotions,
+            onClick = {
+                text = it.statementEnding
+                onEmotionSelected(it)
+            },
+            onDismiss = { dialogVisible = false }
+        )
+    }
+}
+
+@Composable
 private fun QuestionStyleProvider(
     content: @Composable () -> Unit
 ) {
@@ -142,10 +203,15 @@ private fun QuestionTextPreview() {
     UnderlyingTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp),
-            modifier = Modifier.background(Purple800)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Purple800)
+                .padding(16.dp)
         ) {
             IntroFirstQuestionText(true, {})
             IntroSecondQuestionText(enabled = true, onTextChange = {})
+            RepeatFirstQuestionText(true, "어떤 이유 때문이", {})
+            RepeatSecondQuestionText(enabled = true, onEmotionSelected = {})
         }
     }
 }
