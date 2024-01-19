@@ -43,7 +43,7 @@ fun IntroFirstQuestionText(
     var text by remember { mutableStateOf("") }
 
     QuestionStyleProvider {
-        Row {
+        FlowRow {
             Text(text = "나는 요즘 ")
             QuestionTextButton(
                 text = text,
@@ -51,7 +51,9 @@ fun IntroFirstQuestionText(
             ) {
                 dialogVisible = true
             }
-            Text(text = "을(를) 느낀다.")
+            // 통째로 줄바꿈 되는 것 방지
+            Text(text = "을(를) ")
+            Text(text = "느낀다.")
         }
     }
 
