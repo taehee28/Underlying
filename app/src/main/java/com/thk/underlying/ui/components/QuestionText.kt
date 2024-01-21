@@ -5,13 +5,9 @@ package com.thk.underlying.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -37,10 +33,11 @@ import com.thk.underlying.ui.theme.textButtonLarge
 @Composable
 fun IntroFirstQuestionText(
     enabled: Boolean,
+    emotion: Emotion?,
     onEmotionSelected: (Emotion) -> Unit
 ) {
     var dialogVisible by remember { mutableStateOf(false) }
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(emotion?.original ?: "") }
 
     QuestionStyleProvider {
         FlowRow {
@@ -73,18 +70,19 @@ fun IntroFirstQuestionText(
 @Composable
 fun IntroSecondQuestionText(
     enabled: Boolean,
+    text: String?,
     onTextChange: (String) -> Unit
 ) {
     QuestionStyleProvider {
         Column {
             Text(text = "왜냐하면,")
             FlowRow {
-                var text by remember { mutableStateOf("") }
+                var _text by remember { mutableStateOf(text ?: "") }
 
                 QuestionTextField(
-                    text = text,
+                    text = _text,
                     onTextChange = {
-                        text = it
+                        _text = it
                         onTextChange(it.trim())
                     },
                     enabled = enabled
@@ -99,18 +97,19 @@ fun IntroSecondQuestionText(
 fun RepeatFirstQuestionText(
     enabled: Boolean,
     keyword: String,
+    text: String?,
     onTextChange: (String) -> Unit
 ) {
     QuestionStyleProvider {
         Column {
             Text(text = "왜 ${keyword}냐면,")
             FlowRow {
-                var text by remember { mutableStateOf("") }
+                var _text by remember { mutableStateOf(text ?: "") }
 
                 QuestionTextField(
-                    text = text,
+                    text = _text,
                     onTextChange = {
-                        text = it
+                        _text = it
                         onTextChange(it.trim())
                     },
                     enabled = enabled
@@ -124,9 +123,10 @@ fun RepeatFirstQuestionText(
 @Composable
 fun RepeatSecondQuestionText(
     enabled: Boolean,
+    emotion: Emotion?,
     onEmotionSelected: (Emotion) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(emotion?.statementEnding ?: "") }
     var dialogVisible by remember { mutableStateOf(false) }
 
     QuestionStyleProvider {
@@ -210,10 +210,10 @@ private fun QuestionTextPreview() {
                 .background(Purple800)
                 .padding(16.dp)
         ) {
-            IntroFirstQuestionText(true, {})
-            IntroSecondQuestionText(enabled = true, onTextChange = {})
-            RepeatFirstQuestionText(true, "어떤 이유 때문이", {})
-            RepeatSecondQuestionText(enabled = true, onEmotionSelected = {})
+            IntroFirstQuestionText(enabled = true, emotion = null, onEmotionSelected = {})
+            IntroSecondQuestionText(enabled = true, text = null, onTextChange = {})
+            RepeatFirstQuestionText(enabled = true, keyword = "어떤 이유 때문이", text = null, onTextChange =  {})
+            RepeatSecondQuestionText(enabled = true, emotion = null, onEmotionSelected = {})
         }
     }
 }
