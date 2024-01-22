@@ -34,13 +34,14 @@ import com.thk.underlying.ui.theme.textButtonLarge
 fun IntroFirstQuestionText(
     enabled: Boolean,
     emotion: Emotion?,
-    onEmotionSelected: (Emotion) -> Unit
+    onEmotionSelected: (Emotion) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var dialogVisible by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf(emotion?.original ?: "") }
 
     QuestionStyleProvider {
-        FlowRow {
+        FlowRow(modifier = modifier) {
             Text(text = "나는 요즘 ")
             QuestionTextButton(
                 text = text,
@@ -71,10 +72,11 @@ fun IntroFirstQuestionText(
 fun IntroSecondQuestionText(
     enabled: Boolean,
     text: String?,
-    onTextChange: (String) -> Unit
+    onTextChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     QuestionStyleProvider {
-        Column {
+        Column(modifier = modifier) {
             Text(text = "왜냐하면,")
             FlowRow {
                 var _text by remember { mutableStateOf(text ?: "") }
@@ -98,10 +100,11 @@ fun RepeatFirstQuestionText(
     enabled: Boolean,
     keyword: String,
     text: String?,
-    onTextChange: (String) -> Unit
+    onTextChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     QuestionStyleProvider {
-        Column {
+        Column(modifier = modifier) {
             Text(text = "왜 ${keyword}냐면,")
             FlowRow {
                 var _text by remember { mutableStateOf(text ?: "") }
@@ -124,13 +127,14 @@ fun RepeatFirstQuestionText(
 fun RepeatSecondQuestionText(
     enabled: Boolean,
     emotion: Emotion?,
-    onEmotionSelected: (Emotion) -> Unit
+    onEmotionSelected: (Emotion) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var text by remember { mutableStateOf(emotion?.statementEnding ?: "") }
     var dialogVisible by remember { mutableStateOf(false) }
 
     QuestionStyleProvider {
-        FlowRow {
+        FlowRow(modifier = modifier) {
             Text(text = "그래서 나는 ")
             QuestionTextButton(
                 text = text,

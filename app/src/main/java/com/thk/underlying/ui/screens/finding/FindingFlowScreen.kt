@@ -1,20 +1,23 @@
 package com.thk.underlying.ui.screens.finding
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +39,6 @@ import com.thk.underlying.ui.components.NavigationButtonRow
 import com.thk.underlying.ui.components.RepeatFirstQuestionText
 import com.thk.underlying.ui.components.RepeatSecondQuestionText
 import com.thk.underlying.ui.theme.UnderlyingTheme
-import com.thk.underlying.utils.logd
 
 @Composable
 fun FindingFlowScreen(
@@ -77,21 +79,28 @@ fun FindingFlowScreen(
             }
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
-
         LazyColumn(
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            /*verticalArrangement = Arrangement.spacedBy(24.dp),*/
+            contentPadding = PaddingValues(start = 8.dp, top = 20.dp, end = 8.dp),
             modifier = Modifier
                 .fillMaxWidth()
+                .heightIn(min = 300.dp)
         ) {
             itemsIndexed(
                 items = visibleList,
-                key = { index: Int, item: InputModel -> index }
+                key = { index: Int, item: InputModel -> index },
+                contentType = { index: Int, item: InputModel -> item.step }
             ) {index: Int, item: InputModel ->
-                logd(">> LazyColumn: $index")
 
-                if (index == visibleList.lastIndex-1 || index == visibleList.lastIndex) {
+                AnimatedVisibility(
+                    visible = index == visibleList.lastIndex - 1 || index == visibleList.lastIndex,
+                    enter = fadeIn(tween(500)) + expandVertically(),
+                    exit = fadeOut(tween(200)) + shrinkVertically(
+                        animationSpec = tween(
+                            easing = LinearOutSlowInEasing,
+                            delayMillis = 50,
+                        ),
+                    ),
+                ) {
                     when (item.step) {
                         FlowStep.INTRO_FIRST -> {
                             require(item is EmotionInputModel)
@@ -99,7 +108,7 @@ fun FindingFlowScreen(
                             IntroFirstQuestionText(
                                 enabled = index == visibleList.lastIndex,
                                 emotion = item.emotion,
-                                onEmotionSelected = { inputEmotion = it }
+                                onEmotionSelected = { inputEmotion = it },
                             )
                         }
                         FlowStep.INTRO_SECOND -> {
@@ -108,7 +117,7 @@ fun FindingFlowScreen(
                             IntroSecondQuestionText(
                                 enabled = index == visibleList.lastIndex,
                                 text = item.reason,
-                                onTextChange = { inputReason = it }
+                                onTextChange = { inputReason = it },
                             )
                         }
                         FlowStep.INTRO_THIRD -> {
@@ -118,7 +127,7 @@ fun FindingFlowScreen(
                                 enabled = index == visibleList.lastIndex,
                                 keyword = "${(visibleList[index - 1] as StringInputModel).reason} 때문이",
                                 text = item.reason,
-                                onTextChange = { inputReason = it }
+                                onTextChange = { inputReason = it },
                             )
                         }
                         FlowStep.REPEAT_FIRST -> {
@@ -127,7 +136,7 @@ fun FindingFlowScreen(
                             RepeatSecondQuestionText(
                                 enabled = index == visibleList.lastIndex,
                                 emotion = item.emotion,
-                                onEmotionSelected = { inputEmotion = it }
+                                onEmotionSelected = { inputEmotion = it },
                             )
                         }
                         FlowStep.REPEAT_SECOND -> {
@@ -137,14 +146,17 @@ fun FindingFlowScreen(
                                 enabled = index == visibleList.lastIndex,
                                 keyword = "${(visibleList[index - 1] as EmotionInputModel).emotion?.linkingEnding}",
                                 text = item.reason,
-                                onTextChange = { inputReason = it }
+                                onTextChange = { inputReason = it },
                             )
                         }
                     }
-
-                    Spacer(modifier = Modifier.height(24.dp))
                 }
 
+                AnimatedVisibility(
+                    visible = index == visibleList.lastIndex-1
+                ) {
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
             }
         }
     }
