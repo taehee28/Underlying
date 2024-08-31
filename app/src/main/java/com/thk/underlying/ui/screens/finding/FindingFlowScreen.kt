@@ -7,6 +7,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -17,12 +18,15 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -38,7 +42,9 @@ import com.thk.underlying.ui.components.IntroSecondQuestionText
 import com.thk.underlying.ui.components.NavigationButtonRow
 import com.thk.underlying.ui.components.RepeatFirstQuestionText
 import com.thk.underlying.ui.components.RepeatSecondQuestionText
+import com.thk.underlying.ui.components.UnderlineTextButton
 import com.thk.underlying.ui.theme.UnderlyingTheme
+import com.thk.underlying.ui.theme.textButtonSmall
 
 @Composable
 fun FindingFlowScreen(
@@ -48,6 +54,7 @@ fun FindingFlowScreen(
     updateInput: (InputModel) -> Unit
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 64.dp)
@@ -83,7 +90,7 @@ fun FindingFlowScreen(
             contentPadding = PaddingValues(start = 8.dp, top = 20.dp, end = 8.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 300.dp)
+                .weight(1f)
         ) {
             itemsIndexed(
                 items = visibleList,
@@ -158,6 +165,42 @@ fun FindingFlowScreen(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
             }
+
+            item {
+                AnimatedVisibility(
+                    visible = (visibleList.last().step == FlowStep.REPEAT_FIRST) && (inputEmotion != null),
+                    enter = fadeIn(tween(300)),
+                    exit = fadeOut(tween(100))
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Spacer(modifier = Modifier.height(100.dp))
+                        UnderlineTextButton(
+                            text = "알맹이를 찾았어요",
+                            color = Color.White,
+                            style = MaterialTheme.typography.textButtonSmall,
+                            onClick = { /*TODO*/ }
+                        )
+                    }
+                }
+
+
+            }
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            UnderlineTextButton(
+                text = "그만하기",
+                color = Color.White.copy(alpha = 0.75f),
+                style = MaterialTheme.typography.textButtonSmall,
+                onClick = { /*TODO*/ },
+            )
+
+            Spacer(modifier = Modifier.height(80.dp))
         }
     }
 }
