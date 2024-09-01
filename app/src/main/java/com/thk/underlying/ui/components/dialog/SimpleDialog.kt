@@ -25,11 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.thk.underlying.R
 import com.thk.underlying.ui.theme.Gray950
 import com.thk.underlying.ui.theme.UnderlyingTheme
 
@@ -65,8 +67,8 @@ fun SimpleDialog(
                     .height(50.dp)
             ) {
                 SimpleButton(
-                    text = "취소",
-                    onClick = { onConfirmClick?.invoke() },
+                    text = stringResource(id = R.string.cancel),
+                    onClick = { onCancelClick?.invoke() },
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
@@ -80,8 +82,8 @@ fun SimpleDialog(
                         .padding(vertical = 16.dp)
                 )
                 SimpleButton(
-                    text = "확인",
-                    onClick = { onCancelClick?.invoke() },
+                    text = stringResource(id = R.string.confirm),
+                    onClick = { onConfirmClick?.invoke() },
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
@@ -122,7 +124,7 @@ fun SimpleDialogPreview() {
             .fillMaxSize()
             .background(Color.White)) {
             SimpleDialog(
-                content = "진행한 내용이 사라집니다.\n그만하시겠습니까?",
+                content = stringResource(id = R.string.dialog_message_quit_finding),
                 onDismiss = {}
             )
         }

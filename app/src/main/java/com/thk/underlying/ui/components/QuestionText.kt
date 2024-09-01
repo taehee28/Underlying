@@ -2,6 +2,7 @@
 
 package com.thk.underlying.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import com.thk.underlying.ui.theme.Pink300
 import com.thk.underlying.ui.theme.Purple800
 import com.thk.underlying.ui.theme.UnderlyingTheme
 import com.thk.underlying.ui.theme.textButtonLarge
+import com.thk.underlying.utils.logd
 
 @Composable
 fun IntroFirstQuestionText(
@@ -194,9 +196,13 @@ private fun QuestionTextField(
     if (enabled) {
         UnderlineTextField(
             text = text,
-            onTextChange = onTextChange,
+            onTextChange = {
+                if (it.length < 26) {
+                    onTextChange(it)
+                }
+            },
             hint = "어떤 이유",
-            color = Pink300
+            color = Pink300,
         )
     } else {
         Text(text = text)

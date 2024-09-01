@@ -37,7 +37,7 @@ fun NavigationButtonRow(
     Icon(
         painter = painterResource(id = R.drawable.ic_arrow_forward),
         contentDescription = "next button",
-        tint = if (nextEnable()) Color.White else Color.White.copy(alpha = 0.5f),
+        tint = if (nextEnable()) Color.White else Color.White.copy(alpha = 0.3f),
         modifier = Modifier
             .size(32.dp)
             .noRippleClickable(
