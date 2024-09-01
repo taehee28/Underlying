@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,6 +16,8 @@ import androidx.navigation.navigation
 import com.thk.underlying.models.GradientState
 import com.thk.underlying.ui.components.GradientBackground
 import com.thk.underlying.ui.navigation.Screen
+import com.thk.underlying.ui.screens.finding.FindingFlowScreen
+import com.thk.underlying.ui.screens.finding.FindingFlowViewModel
 import com.thk.underlying.ui.screens.home.HomeScreen
 import com.thk.underlying.ui.theme.UnderlyingTheme
 import com.thk.underlying.utils.logd
@@ -64,13 +67,23 @@ private fun UnderlyingNavHost(navController: NavHostController) {
     ) {
         composable(route = Screen.Home.route) {
             HomeScreen(
-                navigateToRevealScreen = { navController.navigate(route = Screen.Finding.route) }
+                navigateToFindingScreen = { navController.navigate(route = Screen.Finding.route) }
             )
         }
 
         navigation(startDestination = Screen.Finding.InFlow.route, route = Screen.Finding.route) {
             composable(route = Screen.Finding.InFlow.route) {
+                val viewModel: FindingFlowViewModel = viewModel()
 
+                FindingFlowScreen(
+                    visibleList = viewModel.inputList,
+                    moveToNext = viewModel::moveToNext,
+                    moveToPrev = viewModel::moveToPrev,
+                    updateInput = viewModel::updateInput,
+                    moveToHomeScreen = {
+                        navController.popBackStack(route = Screen.Home.route, inclusive = false)
+                    }
+                )
             }
         }
     }
